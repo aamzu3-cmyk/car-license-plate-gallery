@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Generator</title>
+    <link rel="stylesheet" href="joke-styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>😂 Random Joke Generator</h1>
+            <p>Get a laugh with random jokes from around the web</p>
+        </div>
+
+        <div class="controls">
+            <button class="get-joke-btn" id="getJokeBtn">Get a Joke</button>
+            <div class="category-select">
+                <label for="categoryFilter">Category:</label>
+                <select id="categoryFilter">
+                    <option value="random">Random</option>
+                    <option value="general">General</option>
+                    <option value="programming">Programming</option>
+                    <option value="knock-knock">Knock-Knock</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="joke-card" id="jokeCard">
+            <div class="joke-content">
+                <p id="jokeText">Click "Get a Joke" to start laughing!</p>
+            </div>
+            <div class="joke-actions">
+                <button class="action-btn copy-btn" id="copyBtn" title="Copy joke">
+                    <span class="icon">📋</span> Copy
+                </button>
+                <button class="action-btn share-btn" id="shareBtn" title="Share joke">
+                    <span class="icon">📤</span> Share
+                </button>
+                <button class="action-btn like-btn" id="likeBtn" title="Like this joke">
+                    <span class="icon">❤️</span> <span id="likeCount">0</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="joke-history">
+            <h2>📚 Recent Jokes</h2>
+            <div class="history-list" id="historyList">
+                <p class="empty-history">No jokes yet. Generate one to get started!</p>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading a joke...</p>
+        </div>
+
+        <div class="error" id="errorMessage"></div>
+
+        <div class="footer">
+            <p>💡 Jokes are fetched from the Official Joke API</p>
+        </div>
+    </div>
+
+    <script src="joke-script.js"></script>
+</body>
+</html>
