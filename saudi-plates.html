@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض لوحات السيارات السعودية</title>
+    <link rel="stylesheet" href="saudi-plates-styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🚗 لوحات السيارات السعودية</h1>
+                <p>منصة عرض وتوثيق لوحات السيارات الفاخرة والنادرة</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat-card">
+                    <span class="stat-number" id="totalPlates">0</span>
+                    <span class="stat-label">إجمالي اللوحات</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" id="viewedPlates">0</span>
+                    <span class="stat-label">مشاهدات</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-content">
+                <a href="#" class="nav-logo">🇸🇦 Saudi Plates</a>
+                <div class="nav-menu">
+                    <a href="#gallery" class="nav-link active">المعرض</a>
+                    <a href="#add-plate" class="nav-link">إضافة لوحة</a>
+                    <a href="#search" class="nav-link">بحث</a>
+                    <a href="#about" class="nav-link">عن الموقع</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Search Section -->
+        <section class="search-section" id="search">
+            <div class="search-container">
+                <h2>🔍 ابحث عن لوحة</h2>
+                <div class="search-filters">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="ابحث برقم اللوحة أو صاحبها..."
+                        class="search-input"
+                    >
+                    <select id="categoryFilter" class="category-filter">
+                        <option value="">جميع الفئات</option>
+                        <option value="اقتصادية">اقتصادية</option>
+                        <option value="عائلية">عائلية</option>
+                        <option value="فاخرة">فاخرة</option>
+                        <option value="رياضية">رياضية</option>
+                        <option value="نادرة">نادرة</option>
+                    </select>
+                    <select id="sortFilter" class="category-filter">
+                        <option value="newest">الأحدث</option>
+                        <option value="popular">الأكثر شهرة</option>
+                        <option value="views">الأكثر مشاهدة</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Plate Section -->
+        <section class="add-plate-section" id="add-plate">
+            <div class="add-plate-container">
+                <h2>➕ إضافة لوحة جديدة</h2>
+                <form id="addPlateForm" class="plate-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>رقم اللوحة *</label>
+                            <input type="text" id="plateNumber" placeholder="مثال: ض 123 أ ب" required>
+                        </div>
+                        <div class="form-group">
+                            <label>نوع السيارة *</label>
+                            <input type="text" id="carType" placeholder="مثال: BMW X5" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>اسم المالك *</label>
+                            <input type="text" id="ownerName" placeholder="اسم صاحب السيارة" required>
+                        </div>
+                        <div class="form-group">
+                            <label>الفئة *</label>
+                            <select id="plateCategory" required>
+                                <option value="">اختر الفئة</option>
+                                <option value="اقتصادية">اقتصادية</option>
+                                <option value="عائلية">عائلية</option>
+                                <option value="فاخرة">فاخرة</option>
+                                <option value="رياضية">رياضية</option>
+                                <option value="نادرة">نادرة</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group full">
+                        <label>الوصف</label>
+                        <textarea id="plateDescription" placeholder="أضف وصفاً للوحة أو السيارة..." rows="4"></textarea>
+                    </div>
+                    <div class="form-group full">
+                        <label>رابط الصورة (URL)</label>
+                        <input type="url" id="plateImage" placeholder="https://example.com/image.jpg">
+                    </div>
+                    <button type="submit" class="submit-btn">إضافة اللوحة</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section" id="gallery">
+            <div class="gallery-header">
+                <h2>معرض اللوحات</h2>
+                <p id="platesCount">عدد اللوحات: 0</p>
+            </div>
+            <div class="gallery-grid" id="platesGallery"></div>
+            <div class="empty-state" id="emptyState">
+                <p>لا توجد لوحات حالياً. كن أول من يضيف لوحة! 🚗</p>
+            </div>
+        </section>
+
+        <!-- Modal for Plate Details -->
+        <div class="modal" id="plateModal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <div class="modal-plate">
+                    <div class="modal-image">
+                        <img id="modalPlateImage" src="" alt="لوحة">
+                    </div>
+                    <div class="modal-details">
+                        <h2 id="modalPlateNumber"></h2>
+                        <div class="modal-info">
+                            <p><strong>السيارة:</strong> <span id="modalCarType"></span></p>
+                            <p><strong>المالك:</strong> <span id="modalOwnerName"></span></p>
+                            <p><strong>الفئة:</strong> <span id="modalCategory"></span></p>
+                            <p><strong>التاريخ:</strong> <span id="modalDate"></span></p>
+                            <p><strong>المشاهدات:</strong> <span id="modalViews"></span></p>
+                        </div>
+                        <div class="modal-description">
+                            <h3>الوصف</h3>
+                            <p id="modalDescription"></p>
+                        </div>
+                        <div class="modal-actions">
+                            <button class="action-btn like-btn" id="likeBtn">❤️ إعجاب</button>
+                            <button class="action-btn share-btn" id="shareBtn">📤 مشاركة</button>
+                            <button class="action-btn delete-btn" id="deleteBtn">🗑️ حذف</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <h2>📌 عن الموقع</h2>
+            <div class="about-content">
+                <div class="about-card">
+                    <h3>🎯 الهدف</h3>
+                    <p>منصة متخصصة لعرض وتوثيق لوحات السيارات السعودية الفاخرة والنادرة والمميزة.</p>
+                </div>
+                <div class="about-card">
+                    <h3>🔒 الأمان</h3>
+                    <p>جميع البيانات تُحفظ محلياً في متصفحك ولا تُرسل إلى أي خادم خارجي.</p>
+                </div>
+                <div class="about-card">
+                    <h3>📱 سهل الاستخدام</h3>
+                    <p>واجهة بسيطة وسهلة الاستخدام على جميع الأجهزة والشاشات.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 منصة لوحات السيارات السعودية. جميع الحقوق محفوظة.</p>
+            <p>تم تطويره بـ ❤️ من قبل aamzu3-cmyk</p>
+        </footer>
+    </div>
+
+    <script src="saudi-plates-script.js"></script>
+</body>
+</html>
